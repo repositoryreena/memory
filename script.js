@@ -5,6 +5,7 @@ const API_URL = 'https://dog.ceo/api/breeds/image/random';
 let flippedCards = [];
 let matchedCards = [];
 let canClick = true; // Add a flag to control when cards can be clicked
+let revealedCards = 0; // Add a variable to keep track of the number of revealed cards
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -34,19 +35,18 @@ function createCard(imageURL) {
     card.appendChild(cardInner);
 
     card.addEventListener('click', () => {
-        if (!canClick || card.classList.contains('revealed')) return;
+        if (!canClick || card.classList.contains('revealed') || revealedCards >= 2) return;
     
         cardInner.style.transform = 'rotateY(180deg)';
         card.classList.add('revealed');
         flippedCards.push(card);
-    
-        if (flippedCards.length === 2) {
+        revealedCards++;
+
+        if (revealedCards === 2) {
             canClick = false;
             setTimeout(checkMatch, 800);
         }
     });
-    
-    
 
     return card;
 }
@@ -85,6 +85,7 @@ function checkMatch() {
     if (card1.querySelector('.card-back').style.backgroundImage === card2.querySelector('.card-back').style.backgroundImage) {
         matchedCards.push(card1, card2);
         flippedCards = [];
+        revealedCards = 0; // Reset the revealed cards counter
 
         if (matchedCards.length === NUM_CARDS) {
             setTimeout(() => alert('Congratulations! You won!'), 500);
@@ -96,13 +97,12 @@ function checkMatch() {
             card1.classList.remove('revealed');
             card2.classList.remove('revealed');
             flippedCards = [];
+            revealedCards = 0; // Reset the revealed cards counter
         }, 800);
     }
 
     canClick = true; // Reset canClick to allow clicking on the next cards
 }
-
-
 
 const resetButton = document.querySelector('.reset-button');
 resetButton.addEventListener('click', resetGame);
@@ -113,6 +113,7 @@ function resetGame() {
     matchedCards = [];
     flippedCards = [];
     canClick = true;
+    revealedCards = 0; // Reset the revealed cards counter
     createBoard();
 }
 
