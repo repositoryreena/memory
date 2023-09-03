@@ -1,0 +1,55 @@
+/* Styles for card flipping animation */
+body {
+    text-align: center;
+}
+.memory-game {
+    display: grid;
+    grid-template-columns: repeat(4, 200px); /* 4 columns with each card 200px wide */
+    grid-template-rows: repeat(2, 200px); /* 2 rows with each card 200px tall */
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 200px; /* Set the card width to 200px */
+    height: 200px; /* Set the card height to 200px */
+    perspective: 1000px;
+    cursor: pointer;
+    margin: 0;
+}
+
+.card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+}
+
+.card-front,
+.card-back {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px; /* Adjust font size to fit the smaller cards */
+    color: white;
+}
+
+.card-front {
+    background-color: #3498db;
+    background-size: contain; /* Fit the image without zooming */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent image repetition */
+}
+
+.card-back {
+    background-color: #e74c3c;
+    transform: rotateY(180deg);
+    background-size: contain; /* Fit the image within the card */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent image repetition */
+}
