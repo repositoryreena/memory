@@ -2,18 +2,19 @@
 body {
     text-align: center;
 }
+
 .memory-game {
     display: grid;
-    grid-template-columns: repeat(4, 200px); /* 4 columns with each card 200px wide */
-    grid-template-rows: repeat(2, 200px); /* 2 rows with each card 200px tall */
+    grid-template-columns: repeat(4, 200px); /* Default for larger screens */
+    grid-template-rows: repeat(2, 200px); /* Default for larger screens */
     gap: 10px;
     justify-content: center;
     align-items: center;
 }
 
 .card {
-    width: 200px; /* Set the card width to 200px */
-    height: 200px; /* Set the card height to 200px */
+    width: 200px; /* Default card width */
+    height: 200px; /* Default card height */
     perspective: 1000px;
     cursor: pointer;
     margin: 0;
@@ -52,4 +53,34 @@ body {
     background-size: contain; /* Fit the image within the card */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent image repetition */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .memory-game {
+        grid-template-columns: repeat(2, 1fr); /* 2 columns on medium screens */
+        grid-template-rows: repeat(4, 150px); /* Adjust height accordingly */
+    }
+
+    .card {
+        width: 150px; /* Adjust card width */
+        height: 150px; /* Adjust card height */
+    }
+}
+
+@media (max-width: 480px) {
+    .memory-game {
+        grid-template-columns: 1fr; /* 1 column on small screens */
+        grid-template-rows: repeat(8, 100px); /* Adjust height accordingly */
+    }
+
+    .card {
+        width: 100px; /* Adjust card width */
+        height: 100px; /* Adjust card height */
+    }
+
+    .card-front,
+    .card-back {
+        font-size: 16px; /* Adjust font size for smaller screens */
+    }
 }
